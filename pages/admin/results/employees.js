@@ -8,7 +8,7 @@ import CardTableEvaluations from "components/Cards/CardTableEvaluations.js";
 
 import Admin from "layouts/Admin.js";
 
-export default function Evaluations() {
+export default function Employees() {
   return (
     <>
       <div className="flex flex-wrap mt-4">
@@ -20,4 +20,4 @@ export default function Evaluations() {
   );
 }
 
-Evaluations.layout = Admin;
+Employees.layout = Admin;
