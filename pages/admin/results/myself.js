@@ -8,16 +8,16 @@ import CardTableEvaluationsResults from "components/Cards/CardTableEvaluationsRe
 
 import Admin from "layouts/Admin.js";
 
-export default function Employees() {
+export default function Myself() {
   return (
     <>
       <div className="flex flex-wrap mt-4">
         <div className="w-full mb-12 px-4">
-          <CardTableEvaluationsResults />
+          <CardTableEvaluationsResults isMyself={true} />
         </div>
       </div>
     </>
   );
 }
 
-Employees.layout = Admin;
+Myself.layout = Admin;

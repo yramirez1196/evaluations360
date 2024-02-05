@@ -19,13 +19,13 @@ export default function Login() {
                   </h6>
                 </div>
                 <div className="btn-wrapper text-center">
-                  <button
+                  {/*  <button
                     className="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
                     type="button"
                   >
                     <img alt="..." className="w-5 mr-1" src="/img/github.svg" />
                     Github
-                  </button>
+                  </button> */}
                   <button
                     className="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
                     type="button"
@@ -82,12 +82,14 @@ export default function Login() {
                   </div>
 
                   <div className="text-center mt-6">
-                    <button
-                      className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                      type="button"
-                    >
-                      Sign In
-                    </button>
+                    <Link href="/admin/dashboard">
+                      <button
+                        className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+                        type="button"
+                      >
+                        Sign In
+                      </button>
+                    </Link>
                   </div>
                 </form>
               </div>
@@ -102,13 +104,13 @@ export default function Login() {
                   <small>Forgot password?</small>
                 </a>
               </div>
-              <div className="w-1/2 text-right">
+              {/* <div className="w-1/2 text-right">
                 <Link href="/auth/register">
                   <a href="#pablo" className="text-blueGray-200">
                     <small>Create new account</small>
                   </a>
                 </Link>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

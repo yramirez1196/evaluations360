@@ -87,7 +87,6 @@ export default function Sidebar() {
             {/* Divider */}
             <hr className="my-4 md:min-w-full" />
             {/* Heading */}
-            
 
             <ul className="md:flex-col md:min-w-full flex flex-col list-none">
               <li className="items-center">
@@ -182,7 +181,10 @@ export default function Sidebar() {
                   </a>
                 </Link>
               </li>
-
+              <hr className="my-4 md:min-w-full" />
+              <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
+                Leads Options
+              </h6>
               <li className="items-center">
                 <Link href="/admin/results/employees">
                   <a
@@ -204,7 +206,57 @@ export default function Sidebar() {
                           : "text-blueGray-300")
                       }
                     ></i>{" "}
-                    Employee Evaluation Results
+                    Employee Evaluation
+                  </a>
+                </Link>
+              </li>
+              <li className="items-center">
+                <Link href="/admin/results/myself">
+                  <a
+                    href="#pablo"
+                    className={
+                      "text-xs uppercase py-3 font-bold block " +
+                      (router.pathname.indexOf("/admin/results/myself") !== -1
+                        ? "text-lightBlue-500 hover:text-lightBlue-600"
+                        : "text-blueGray-700 hover:text-blueGray-500")
+                    }
+                  >
+                    <i
+                      className={
+                        "fas fa-table mr-2 text-sm " +
+                        (router.pathname.indexOf("/admin/results/myself") !== -1
+                          ? "opacity-75"
+                          : "text-blueGray-300")
+                      }
+                    ></i>{" "}
+                    Self-Assessment Overview
+                  </a>
+                </Link>
+              </li>
+              <hr className="my-4 md:min-w-full" />
+              <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
+                Admin Options
+              </h6>
+              <li className="items-center">
+                <Link href="/admin/questions">
+                  <a
+                    href="#pablo"
+                    className={
+                      "text-xs uppercase py-3 font-bold block " +
+                      (router.pathname.indexOf("/admin/questions") !== -1
+                        ? "text-lightBlue-500 hover:text-lightBlue-600"
+                        : "text-blueGray-700 hover:text-blueGray-500")
+                    }
+                  >
+                    <i
+                      className={
+                        "fas fa-table mr-2 text-sm " +
+                        (router.pathname.indexOf("/admin/questions") !== -1
+                          ? "opacity-75"
+                          : "text-blueGray-300")
+                      }
+                    ></i>{" "}
+                    Questions
                   </a>
                 </Link>
               </li>
@@ -233,8 +285,7 @@ export default function Sidebar() {
               </li> */}
             </ul>
 
-          
-           {/*  <hr className="my-4 md:min-w-full" />
+            {/*  <hr className="my-4 md:min-w-full" />
        
             <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
               Auth Layout Pages

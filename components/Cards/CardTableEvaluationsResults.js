@@ -6,8 +6,9 @@ import PropTypes from "prop-types";
 import NotificationDropdownEvaluations from "components/Dropdowns/TableDropdownEvaluations.js";
 import { Input } from "components/general/form/input";
 import { InputSelect } from "components/general/form/input-select";
+import { InputDate } from "components/general/form/input-date";
 
-export default function CardTableEvaluations({ color,  }) {
+export default function CardTableEvaluationsResults({ color, isMyself }) {
   const arrayEmployees = [
     {
       img: "/img/team-1-800x800.jpg",
@@ -41,16 +42,29 @@ export default function CardTableEvaluations({ color,  }) {
   return (
     <>
       <div
-        className="relative flex flex-row gap-x-3 items-center break-words w-full mb-6 shadow-lg rounded bg-blueGray-100  p-8"
-        style={{ columnGap: "32px" }}
+        className="relative grid gap-x-3 items-center break-words w-full mb-6 shadow-lg rounded bg-blueGray-100  p-8"
+        style={{
+          columnGap: "32px",
+          rowGap: "22px",
+          gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+        }}
       >
-        <Input label="Name" placeHolder={"Name"} defaultValue={""}></Input>
-        <Input label="Email" placeHolder={"Email"} defaultValue={""}></Input>
-        <InputSelect
-          label="Job Position"
-          options={["FrontEnd Dev", "Backend Dev", "FullStack"]}
-        ></InputSelect>
-
+        {!isMyself && (
+          <>
+            <Input label="Name" placeHolder={"Name"} defaultValue={""}></Input>
+            <Input
+              label="Email"
+              placeHolder={"Email"}
+              defaultValue={""}
+            ></Input>
+            <InputSelect
+              label="Job Position"
+              options={["FrontEnd Dev", "Backend Dev", "FullStack"]}
+            ></InputSelect>
+          </>
+        )}
+        <InputDate label="From" placeHolder={"From"}></InputDate>
+        <InputDate label="To" placeHolder={"To"}></InputDate>
         <div>
           <button
             className="bg-blueGray-700 active:bg-blueGray-600 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
@@ -157,7 +171,7 @@ export default function CardTableEvaluations({ color,  }) {
                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
                       <NotificationDropdownEvaluations
                         id={key + 1}
-                        isCreate={true}
+                        isCreate={false}
                       />
                     </td>
                   </tr>
@@ -171,10 +185,10 @@ export default function CardTableEvaluations({ color,  }) {
   );
 }
 
-CardTableEvaluations.defaultProps = {
+CardTableEvaluationsResults.defaultProps = {
   color: "light",
 };
 
-CardTableEvaluations.propTypes = {
+CardTableEvaluationsResults.propTypes = {
   color: PropTypes.oneOf(["light", "dark"]),
 };

@@ -1,8 +1,10 @@
 import React from "react";
 import { createPopper } from "@popperjs/core";
 import Link from "next/link";
+import { useModal } from "hooks/modal";
+import { ContainerEvaluations } from "./ContainerEvaluations";
 
-const NotificationDropdownEvaluations = ({id}) => {
+const NotificationDropdownEvaluations = ({ id, isCreate }) => {
   // dropdown props
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
   const btnDropdownRef = React.createRef();
@@ -16,6 +18,7 @@ const NotificationDropdownEvaluations = ({id}) => {
   const closeDropdownPopover = () => {
     setDropdownPopoverShow(false);
   };
+  const { Modal, hide, isShow, show } = useModal();
   return (
     <>
       <button
@@ -32,7 +35,7 @@ const NotificationDropdownEvaluations = ({id}) => {
         ref={popoverDropdownRef}
         className={
           (dropdownPopoverShow ? "block " : "hidden ") +
-          "bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48"
+          "bg-white text-base z-20 float-left py-2 list-none text-left rounded shadow-lg min-w-48"
         }
       >
         <Link href={`/profile/${id}`}>
@@ -50,11 +53,18 @@ const NotificationDropdownEvaluations = ({id}) => {
             className={
               "focus:outline-none text-sm py-2 px-4 font-normal text-left w-full whitespace-nowrap bg-transparent text-blueGray-700"
             }
+            onClick={() => {
+              show();
+            }}
           >
-           Evaluate
+            Evaluate
           </button>
         </div>
-        
+      </div>
+      <div>
+        <Modal isShow={isShow}>
+          <ContainerEvaluations isCreate={isCreate} />
+        </Modal>
       </div>
     </>
   );
