@@ -1,6 +1,7 @@
 import React from "react";
 
-export const Input = ({ label, placeHolder, defaultValue, textArea }) => {
+export const Input = ({ label, name, placeHolder, defaultValue, textArea, register }) => {
+	 const registerInput = register && register(name);
   return (
     <div className="relative w-full">
       <label
@@ -11,6 +12,7 @@ export const Input = ({ label, placeHolder, defaultValue, textArea }) => {
       </label>
       {!textArea ? (
         <input
+          {...registerInput}
           type="text"
           placeholder={placeHolder}
           className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
@@ -19,6 +21,7 @@ export const Input = ({ label, placeHolder, defaultValue, textArea }) => {
       ) : (
         <>
           <textArea
+            {...registerInput}
             type="text"
             placeholder={placeHolder}
             className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"

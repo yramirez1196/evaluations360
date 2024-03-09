@@ -1,78 +1,35 @@
-import React from "react";
-import PropTypes from "prop-types";
-
-// components
-
-import NotificationDropdownEvaluations from "components/Dropdowns/TableDropdownEvaluations.js";
+import NotificationDropdown from "components/Dropdowns/TableDropdown";
 import { Input } from "components/general/form/input";
-import { InputSelect } from "components/general/form/input-select";
 import { InputDate } from "components/general/form/input-date";
+import { useModal } from "hooks/modal";
+import React from "react";
 
-export default function CardTableEvaluationsResults({ color, isCreate }) {
-  const arrayEmployees = [
+export const CardTableProjects = ({ color = "light" }) => {
+  const { Modal, hide, isShow, show } = useModal();
+  const itProjects = [
     {
-      img: "/img/team-1-800x800.jpg",
-      name: "Juan",
-      jobPosition: "Developer",
-      status: "pending",
-      date: "02-02-2022",
-      email: "example@shokworks.io",
+      name: "Project A",
+      owner: "John Doe",
+      numberOfTeam: 10,
+      initDate: "2022-03-01",
     },
     {
-      img: "/img/team-2-800x800.jpg",
-      name: "Pedro",
-      jobPosition: "Developer",
-      status: "pending",
-      date: "02-02-2023",
-      email: "example@shokworks.io",
+      name: "Project B",
+      owner: "Jane Smith",
+      numberOfTeam: 8,
+      initDate: "2022-02-15",
     },
     {
-      img: "/img/team-3-800x800.jpg",
-      name: "Maria",
-      jobPosition: "Developer",
-      status: "pending",
-      date: "02-02-2024",
-      email: "example@shokworks.io",
+      name: "Project C",
+      owner: "Bob Johnson",
+      numberOfTeam: 12,
+      initDate: "2022-03-10",
     },
-    {
-      img: "/img/team-4-470x470.png",
-      name: "Ana",
-      jobPosition: "Developer",
-      status: "pending",
-      date: "02-02-2021",
-      email: "example@shokworks.io",
-    },
+    // Puedes agregar más proyectos según sea necesario
   ];
   return (
     <>
-      <div
-        className="relative grid gap-x-3 items-center break-words w-full mb-6 shadow-lg rounded bg-blueGray-100  p-8"
-        style={{
-          columnGap: "32px",
-          rowGap: "22px",
-          gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-        }}
-      >
-        <>
-          <Input label="Name" placeHolder={"Name"} defaultValue={""}></Input>
-          <Input label="Email" placeHolder={"Email"} defaultValue={""}></Input>
-          <InputSelect
-            label="Job Position"
-            options={["FrontEnd Dev", "Backend Dev", "FullStack"]}
-          ></InputSelect>
-        </>
-
-        <InputDate label="From" placeHolder={"From"}></InputDate>
-        <InputDate label="To" placeHolder={"To"}></InputDate>
-        <div>
-          <button
-            className="bg-blueGray-700 active:bg-blueGray-600 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-            type="button"
-          >
-            Search
-          </button>
-        </div>
-      </div>
+      
       <div
         className={
           "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded " +
@@ -88,8 +45,19 @@ export default function CardTableEvaluationsResults({ color, isCreate }) {
                   (color === "light" ? "text-blueGray-700" : "text-white")
                 }
               >
-                Evaluations 360°
+                Projects
               </h3>
+            </div>
+            <div>
+              <button
+                className="bg-blueGray-700 active:bg-blueGray-600 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                type="button"
+                onClick={() => {
+                  show();
+                }}
+              >
+                Crear
+              </button>
             </div>
           </div>
         </div>
@@ -117,7 +85,7 @@ export default function CardTableEvaluationsResults({ color, isCreate }) {
                       : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
                   }
                 >
-                  Job position
+                  Owner
                 </th>
 
                 <th
@@ -128,7 +96,7 @@ export default function CardTableEvaluationsResults({ color, isCreate }) {
                       : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
                   }
                 >
-                  Email
+                  Number of Team
                 </th>
                 <th
                   className={
@@ -138,7 +106,7 @@ export default function CardTableEvaluationsResults({ color, isCreate }) {
                       : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
                   }
                 >
-                  Date
+                  Init Date
                 </th>
                 <th
                   className={
@@ -151,39 +119,25 @@ export default function CardTableEvaluationsResults({ color, isCreate }) {
               </tr>
             </thead>
             <tbody>
-              {arrayEmployees.map((item, key) => {
+              {itProjects.map((item, key) => {
                 return (
                   <tr key={key}>
-                    <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-                      <img
-                        src={item.img}
-                        className="h-12 w-12 bg-white rounded-full border"
-                        alt="..."
-                      ></img>{" "}
-                      <span
-                        className={
-                          "ml-3 font-bold " +
-                          +(color === "light"
-                            ? "text-blueGray-600"
-                            : "text-white")
-                        }
-                      >
-                        {item.name}
-                      </span>
-                    </th>
                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                      {item.jobPosition}
+                      {item.name}
                     </td>
                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                      {item.email}
+                      {item.owner}
                     </td>
                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                      {item.date}
+                      {item.numberOfTeam}
+                    </td>
+                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                      {item.initDate}
                     </td>
                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                      <NotificationDropdownEvaluations
-                        id={key + 1}
-                        isCreate={false}
+                      <NotificationDropdown
+                      /*  id={key + 1}
+                      isCreate={false} */
                       />
                     </td>
                   </tr>
@@ -193,14 +147,39 @@ export default function CardTableEvaluationsResults({ color, isCreate }) {
           </table>
         </div>
       </div>
+      <div>
+        <Modal isShow={isShow}>
+          <div className="px-12 flex flex-col " style={{ rowGap: "16px" }}>
+            <Input label="Name" placeHolder={"Name"} defaultValue={""}></Input>
+            <Input
+              label="Owner"
+              placeHolder={"Owner"}
+              defaultValue={""}
+            ></Input>
+            <InputDate label="Init Date" placeHolder={"Init Date"}></InputDate>
+            <div className="flex justify-end w-full">
+              <button
+                className="bg-red-500 active:bg-red-500 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                type="button"
+                onClick={() => {
+                  hide();
+                }}
+              >
+                Cancelar
+              </button>
+              <button
+                className="bg-blueGray-700 active:bg-blueGray-600 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                type="button"
+                onClick={() => {
+                  hide();
+                }}
+              >
+                Crear
+              </button>
+            </div>
+          </div>
+        </Modal>
+      </div>
     </>
   );
-}
-
-CardTableEvaluationsResults.defaultProps = {
-  color: "light",
-};
-
-CardTableEvaluationsResults.propTypes = {
-  color: PropTypes.oneOf(["light", "dark"]),
 };

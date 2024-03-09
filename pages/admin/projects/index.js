@@ -2,22 +2,22 @@ import React from "react";
 
 // components
 
-import CardTableEvaluationsResultsMySelf from "components/Cards/CardTableEvaluationsResultsMySelf.js";
 
 // layout for page
 
 import Admin from "layouts/Admin.js";
+import { CardTableProjects } from "components/Cards/CardTableProjects";
 
-export default function Myself() {
+export default function Project() {
   return (
     <>
       <div className="flex flex-wrap mt-4">
         <div className="w-full mb-12 px-4">
-          <CardTableEvaluationsResultsMySelf isMyself={true} />
+          <CardTableProjects />
         </div>
       </div>
     </>
   );
 }
 
-Myself.layout = Admin;
+Project.layout = Admin;

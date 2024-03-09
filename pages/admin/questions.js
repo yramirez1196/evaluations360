@@ -9,7 +9,11 @@ import { useModal } from "hooks/modal";
 
 import Admin from "layouts/Admin.js";
 import { Input } from "components/general/form/input";
-
+import { InputSelect } from "components/general/form/input-select";
+import * as Yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import { InputNumber } from "components/general/form/input-number";
 export default function Questions() {
   const softSkillsQuestions = [
     "¿Cómo calificarías la capacidad del empleado para comunicarse de manera clara y efectiva con colegas y clientes?",
@@ -23,6 +27,38 @@ export default function Questions() {
     "¿Cómo evaluarías la capacidad del empleado para abordar y resolver problemas técnicos de manera efectiva?",
   ];
   const { Modal, hide, isShow, show } = useModal();
+  const {
+    Modal: ModalEdit,
+    hide: hideEdit,
+    isShow: isShowEdit,
+    show: showEdit,
+  } = useModal();
+
+  const schemaEdit = Yup.object().shape({
+    question: Yup.string().required("Required"),
+  });
+  const {
+    register: registerEdit,
+    handleSubmit,
+    setValue: setValueEdit,
+    control,
+    formState: {
+      // isValid,
+      errors,
+    },
+  } = useForm({
+    mode: "onChange",
+    resolver: yupResolver(schemaEdit),
+  });
+  React.useEffect(() => {
+    if (isShowEdit) {
+      setValueEdit(
+        "question",
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley"
+      );
+    }
+  }, [isShowEdit]);
+
   return (
     <>
       <div className="flex flex-wrap mt-4">
@@ -57,6 +93,7 @@ export default function Questions() {
                     <td className="py-2 px-4">
                       <button
                         /*      onClick={() => onEdit(index)} */
+                        onClick={() => showEdit()}
                         className="text-blue-500 underline"
                       >
                         Editar
@@ -69,7 +106,7 @@ export default function Questions() {
                     <td className="py-2 px-4">{question}</td>
                     <td className="py-2 px-4">
                       <button
-                        /*    onClick={() => onEdit(index)} */
+                        onClick={() => showEdit()}
                         className="text-blue-500 underline"
                       >
                         Editar
@@ -86,15 +123,22 @@ export default function Questions() {
             <div>
               <form
                 /* onSubmit={handleSubmit} */ className="mb-8 bg-blueGray-100"
-                style={{ padding: "40px"}}
+                style={{ padding: "40px" }}
               >
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   New Question:
                 </label>
-                <div className="flex flex-col mt-12">
+                <div className="flex flex-col mt-8">
                   <Input label={"Question"} textArea />
                 </div>
-                <div>
+
+                <div className="mt-4">
+                  <InputSelect
+                    label="Type Question"
+                    options={["Tech Question", "Soft Question"]}
+                  ></InputSelect>
+                </div>
+                <div className="">
                   <button
                     className="mt-12 bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
@@ -105,6 +149,48 @@ export default function Questions() {
               </form>
             </div>
           </Modal>
+        </div>
+
+        <div>
+          <ModalEdit isShow={isShowEdit}>
+            <div>
+              <form
+                /* onSubmit={handleSubmit} */ className="mb-8 bg-blueGray-100"
+                style={{ padding: "40px" }}
+              >
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  New Question:
+                </label>
+                <div className="flex flex-col mt-8">
+                  <Input
+                    register={registerEdit}
+                    name="question"
+                    label={"Question"}
+                    textArea
+                    defaultValue={
+                      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley  "
+                    }
+                  />
+                </div>
+                <InputNumber label={"Percentage"} />
+
+                <div className="mt-4">
+                  <InputSelect
+                    label="Type Question"
+                    options={["Tech Question", "Soft Question"]}
+                  ></InputSelect>
+                </div>
+                <div className="">
+                  <button
+                    className="mt-12 bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                  >
+                    Agregar
+                  </button>
+                </div>
+              </form>
+            </div>
+          </ModalEdit>
         </div>
       </div>
     </>

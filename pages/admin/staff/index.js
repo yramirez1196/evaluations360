@@ -7,17 +7,19 @@ import CardTableEvaluationsResultsMySelf from "components/Cards/CardTableEvaluat
 // layout for page
 
 import Admin from "layouts/Admin.js";
+import { CardTableStaff } from "components/Cards/CardTableStaff";
 
-export default function Myself() {
+export default function Staff() {
   return (
     <>
       <div className="flex flex-wrap mt-4">
         <div className="w-full mb-12 px-4">
-          <CardTableEvaluationsResultsMySelf isMyself={true} />
+					<CardTableStaff></CardTableStaff>
+          {/* <CardTableEvaluationsResultsMySelf isMyself={true} /> */}
         </div>
       </div>
     </>
   );
 }
 
-Myself.layout = Admin;
+Staff.layout = Admin;

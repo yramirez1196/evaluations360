@@ -8,40 +8,24 @@ import { Input } from "components/general/form/input";
 import { InputSelect } from "components/general/form/input-select";
 import { InputDate } from "components/general/form/input-date";
 
-export default function CardTableEvaluationsResults({ color, isCreate }) {
+export default function CardTableEvaluationsResultsMySelf({ color, isMyself }) {
   const arrayEmployees = [
     {
-      img: "/img/team-1-800x800.jpg",
-      name: "Juan",
-      jobPosition: "Developer",
-      status: "pending",
-      date: "02-02-2022",
-      email: "example@shokworks.io",
+      resultSoft: "4",
+      resultTech: "4",
+      date: "02/02/2022",
     },
     {
-      img: "/img/team-2-800x800.jpg",
-      name: "Pedro",
-      jobPosition: "Developer",
-      status: "pending",
-      date: "02-02-2023",
-      email: "example@shokworks.io",
+      resultSoft: "4",
+      resultTech: "4",
+      date: "02/02/2023",
     },
     {
-      img: "/img/team-3-800x800.jpg",
-      name: "Maria",
-      jobPosition: "Developer",
-      status: "pending",
-      date: "02-02-2024",
-      email: "example@shokworks.io",
+      resultSoft: "4",
+      resultTech: "4",
+      date: "02/02/2024",
     },
-    {
-      img: "/img/team-4-470x470.png",
-      name: "Ana",
-      jobPosition: "Developer",
-      status: "pending",
-      date: "02-02-2021",
-      email: "example@shokworks.io",
-    },
+    
   ];
   return (
     <>
@@ -53,15 +37,20 @@ export default function CardTableEvaluationsResults({ color, isCreate }) {
           gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
         }}
       >
-        <>
-          <Input label="Name" placeHolder={"Name"} defaultValue={""}></Input>
-          <Input label="Email" placeHolder={"Email"} defaultValue={""}></Input>
-          <InputSelect
-            label="Job Position"
-            options={["FrontEnd Dev", "Backend Dev", "FullStack"]}
-          ></InputSelect>
-        </>
-
+        {!isMyself && (
+          <>
+            <Input label="Name" placeHolder={"Name"} defaultValue={""}></Input>
+            <Input
+              label="Email"
+              placeHolder={"Email"}
+              defaultValue={""}
+            ></Input>
+            <InputSelect
+              label="Job Position"
+              options={["FrontEnd Dev", "Backend Dev", "FullStack"]}
+            ></InputSelect>
+          </>
+        )}
         <InputDate label="From" placeHolder={"From"}></InputDate>
         <InputDate label="To" placeHolder={"To"}></InputDate>
         <div>
@@ -107,7 +96,7 @@ export default function CardTableEvaluationsResults({ color, isCreate }) {
                       : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
                   }
                 >
-                  Name
+                  Result Soft skills
                 </th>
                 <th
                   className={
@@ -117,19 +106,9 @@ export default function CardTableEvaluationsResults({ color, isCreate }) {
                       : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
                   }
                 >
-                  Job position
+                  Result Technical skills
                 </th>
 
-                <th
-                  className={
-                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                    (color === "light"
-                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                      : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
-                  }
-                >
-                  Email
-                </th>
                 <th
                   className={
                     "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
@@ -154,28 +133,11 @@ export default function CardTableEvaluationsResults({ color, isCreate }) {
               {arrayEmployees.map((item, key) => {
                 return (
                   <tr key={key}>
-                    <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-                      <img
-                        src={item.img}
-                        className="h-12 w-12 bg-white rounded-full border"
-                        alt="..."
-                      ></img>{" "}
-                      <span
-                        className={
-                          "ml-3 font-bold " +
-                          +(color === "light"
-                            ? "text-blueGray-600"
-                            : "text-white")
-                        }
-                      >
-                        {item.name}
-                      </span>
-                    </th>
                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                      {item.jobPosition}
+                      {item.resultSoft}
                     </td>
                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                      {item.email}
+                      {item.resultTech}
                     </td>
                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                       {item.date}
@@ -197,10 +159,10 @@ export default function CardTableEvaluationsResults({ color, isCreate }) {
   );
 }
 
-CardTableEvaluationsResults.defaultProps = {
+CardTableEvaluationsResultsMySelf.defaultProps = {
   color: "light",
 };
 
-CardTableEvaluationsResults.propTypes = {
+CardTableEvaluationsResultsMySelf.propTypes = {
   color: PropTypes.oneOf(["light", "dark"]),
 };

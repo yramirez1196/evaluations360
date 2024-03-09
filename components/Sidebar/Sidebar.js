@@ -1,13 +1,86 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
 import NotificationDropdown from "components/Dropdowns/NotificationDropdown.js";
 import UserDropdown from "components/Dropdowns/UserDropdown.js";
+import clsx from "clsx";
 
 export default function Sidebar() {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
   const router = useRouter();
+
+  const options = [
+    {
+      title: "Dashboard",
+      path: "/admin/dashboard",
+      iconClass: "fas fa-tv",
+    },
+    // {
+    //   title: "Settings",
+    //   path: "/admin/settings",
+    //   iconClass: "fas fa-tools",
+    // },
+    // {
+    //   title: "Tables",
+    //   path: "/admin/tables",
+    //   iconClass: "fas fa-table",
+    // },
+    {
+      title: "Evaluations 360°",
+      path: "/admin/evaluations",
+      iconClass: "fas fa-table",
+    },
+
+    // {
+    //   title: "Maps",
+    //   path: "/admin/maps",
+    //   iconClass: "fas fa-map-marked",
+    // },
+  ];
+
+  const renderOptions = [
+    {
+      title: "Employee Evaluation",
+      arrayOptions: [
+        {
+          title: "Employee Evaluation",
+          path: "/admin/results/employees",
+          iconClass: "fas fa-table",
+        },
+        {
+          title: "Self-Assessment Overview",
+          path: "/admin/results/myself",
+          iconClass: "fas fa-table",
+        },
+      ],
+    },
+    {
+      title: "Admin Options",
+      arrayOptions: [
+        {
+          title: "Questions",
+          path: "/admin/questions",
+          iconClass: "fas fa-table",
+        },
+        {
+          title: "Departments",
+          path: "/admin/departments",
+          iconClass: "fas fa-table",
+        },
+        {
+          title: "Staff",
+          path: "/admin/staff",
+          iconClass: "fas fa-table",
+        },
+        {
+          title: "Projects",
+          path: "/admin/projects",
+          iconClass: "fas fa-table",
+        },
+      ],
+    },
+  ];
   return (
     <>
       <nav className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6">
@@ -181,85 +254,41 @@ export default function Sidebar() {
                   </a>
                 </Link>
               </li>
-              <hr className="my-4 md:min-w-full" />
-              <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-                Leads Options
-              </h6>
-              <li className="items-center">
-                <Link href="/admin/results/employees">
-                  <a
-                    href="#pablo"
-                    className={
-                      "text-xs uppercase py-3 font-bold block " +
-                      (router.pathname.indexOf("/admin/results/employees") !==
-                      -1
-                        ? "text-lightBlue-500 hover:text-lightBlue-600"
-                        : "text-blueGray-700 hover:text-blueGray-500")
-                    }
-                  >
-                    <i
-                      className={
-                        "fas fa-table mr-2 text-sm " +
-                        (router.pathname.indexOf("/admin/results/employees") !==
-                        -1
-                          ? "opacity-75"
-                          : "text-blueGray-300")
-                      }
-                    ></i>{" "}
-                    Employee Evaluation
-                  </a>
-                </Link>
-              </li>
-              <li className="items-center">
-                <Link href="/admin/results/myself">
-                  <a
-                    href="#pablo"
-                    className={
-                      "text-xs uppercase py-3 font-bold block " +
-                      (router.pathname.indexOf("/admin/results/myself") !== -1
-                        ? "text-lightBlue-500 hover:text-lightBlue-600"
-                        : "text-blueGray-700 hover:text-blueGray-500")
-                    }
-                  >
-                    <i
-                      className={
-                        "fas fa-table mr-2 text-sm " +
-                        (router.pathname.indexOf("/admin/results/myself") !== -1
-                          ? "opacity-75"
-                          : "text-blueGray-300")
-                      }
-                    ></i>{" "}
-                    Self-Assessment Overview
-                  </a>
-                </Link>
-              </li>
-              <hr className="my-4 md:min-w-full" />
-              <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-                Admin Options
-              </h6>
-              <li className="items-center">
-                <Link href="/admin/questions">
-                  <a
-                    href="#pablo"
-                    className={
-                      "text-xs uppercase py-3 font-bold block " +
-                      (router.pathname.indexOf("/admin/questions") !== -1
-                        ? "text-lightBlue-500 hover:text-lightBlue-600"
-                        : "text-blueGray-700 hover:text-blueGray-500")
-                    }
-                  >
-                    <i
-                      className={
-                        "fas fa-table mr-2 text-sm " +
-                        (router.pathname.indexOf("/admin/questions") !== -1
-                          ? "opacity-75"
-                          : "text-blueGray-300")
-                      }
-                    ></i>{" "}
-                    Questions
-                  </a>
-                </Link>
-              </li>
+              {renderOptions.map((item, index) => (
+                <div key={index}>
+                  <hr className="my-4 md:min-w-full" />
+                  <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
+                    {item.title}
+                  </h6>
+                  {item.arrayOptions.map((itemOption, indexOption) => (
+                    <li className="items-center" key={indexOption}>
+                      <Link href={itemOption.path}>
+                        <a
+                          href="#pablo"
+                          className={
+                            "text-xs uppercase py-3 font-bold block " +
+                            (router.pathname.indexOf(itemOption.path) !== -1
+                              ? "text-lightBlue-500 hover:text-lightBlue-600"
+                              : "text-blueGray-700 hover:text-blueGray-500")
+                          }
+                        >
+                          <i
+                            className={clsx(
+                              itemOption.iconClass,
+                              "mr-2 text-sm ",
+                              router.pathname.indexOf(itemOption.path) !== -1
+                                ? "opacity-75"
+                                : "text-blueGray-300"
+                            )}
+                          ></i>{" "}
+                          {itemOption.title}
+                        </a>
+                      </Link>
+                    </li>
+                  ))}
+                </div>
+              ))}
+
               {/* <li className="items-center">
                 <Link href="/admin/maps">
                   <a
