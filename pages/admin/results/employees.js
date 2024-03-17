@@ -7,6 +7,7 @@ import CardTableEvaluationsResults from "components/Cards/CardTableEvaluationsRe
 // layout for page
 
 import Admin from "layouts/Admin.js";
+import { getSession } from "next-auth/react";
 
 export default function Employees() {
   return (
@@ -21,3 +22,19 @@ export default function Employees() {
 }
 
 Employees.layout = Admin;
+export const getServerSideProps = async (context) => {
+  const session = await getSession(context);
+
+  if (session && session.accessToken) {
+    return {
+      props: {},
+    };
+  } else {
+    return {
+      redirect: {
+        destination: "/auth/login",
+        permanent: false,
+      },
+    };
+  }
+};

@@ -5,11 +5,12 @@ import { useRouter } from "next/router";
 import NotificationDropdown from "components/Dropdowns/NotificationDropdown.js";
 import UserDropdown from "components/Dropdowns/UserDropdown.js";
 import clsx from "clsx";
+import { useUser } from "hooks/useUser";
 
 export default function Sidebar() {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
   const router = useRouter();
-
+  const { rol } = useUser();
   const options = [
     {
       title: "Dashboard",
@@ -42,41 +43,49 @@ export default function Sidebar() {
   const renderOptions = [
     {
       title: "Employee Evaluation",
+      validation: [1, 2, 3],
       arrayOptions: [
         {
-          title: "Employee Evaluation",
+          title: "Employee Results",
           path: "/admin/results/employees",
           iconClass: "fas fa-table",
+          validation: [1, 2],
         },
         {
-          title: "Self-Assessment Overview",
+          title: "Self-Assessment Results",
           path: "/admin/results/myself",
           iconClass: "fas fa-table",
+          validation: [2, 3],
         },
       ],
     },
     {
       title: "Admin Options",
+      validation: [1],
       arrayOptions: [
         {
           title: "Questions",
           path: "/admin/questions",
           iconClass: "fas fa-table",
+          validation: [1],
         },
         {
           title: "Departments",
           path: "/admin/departments",
           iconClass: "fas fa-table",
+          validation: [1],
         },
         {
           title: "Staff",
           path: "/admin/staff",
           iconClass: "fas fa-table",
+          validation: [1],
         },
         {
           title: "Projects",
           path: "/admin/projects",
           iconClass: "fas fa-table",
+          validation: [1],
         },
       ],
     },
@@ -162,29 +171,31 @@ export default function Sidebar() {
             {/* Heading */}
 
             <ul className="md:flex-col md:min-w-full flex flex-col list-none">
-              <li className="items-center">
-                <Link href="/admin/dashboard">
-                  <a
-                    href="#pablo"
-                    className={
-                      "text-xs uppercase py-3 font-bold block " +
-                      (router.pathname.indexOf("/admin/dashboard") !== -1
-                        ? "text-lightBlue-500 hover:text-lightBlue-600"
-                        : "text-blueGray-700 hover:text-blueGray-500")
-                    }
-                  >
-                    <i
+              {rol() === 1 && (
+                <li className="items-center">
+                  <Link href="/admin/dashboard">
+                    <a
+                      href="#pablo"
                       className={
-                        "fas fa-tv mr-2 text-sm " +
+                        "text-xs uppercase py-3 font-bold block " +
                         (router.pathname.indexOf("/admin/dashboard") !== -1
-                          ? "opacity-75"
-                          : "text-blueGray-300")
+                          ? "text-lightBlue-500 hover:text-lightBlue-600"
+                          : "text-blueGray-700 hover:text-blueGray-500")
                       }
-                    ></i>{" "}
-                    Dashboard
-                  </a>
-                </Link>
-              </li>
+                    >
+                      <i
+                        className={
+                          "fas fa-tv mr-2 text-sm " +
+                          (router.pathname.indexOf("/admin/dashboard") !== -1
+                            ? "opacity-75"
+                            : "text-blueGray-300")
+                        }
+                      ></i>{" "}
+                      Dashboard
+                    </a>
+                  </Link>
+                </li>
+              )}
               {/* <li className="items-center">
                 <Link href="/admin/settings">
                   <a
@@ -231,63 +242,84 @@ export default function Sidebar() {
                   </a>
                 </Link>
               </li> */}
-              <li className="items-center">
-                <Link href="/admin/evaluations">
-                  <a
-                    href="#pablo"
-                    className={
-                      "text-xs uppercase py-3 font-bold block " +
-                      (router.pathname.indexOf("/admin/evaluations") !== -1
-                        ? "text-lightBlue-500 hover:text-lightBlue-600"
-                        : "text-blueGray-700 hover:text-blueGray-500")
-                    }
-                  >
-                    <i
+              {rol() !== 1 && (
+                <li className="items-center">
+                  <Link href="/admin/evaluations">
+                    <a
+                      href="#pablo"
                       className={
-                        "fas fa-table mr-2 text-sm " +
+                        "text-xs uppercase py-3 font-bold flex items-center " +
                         (router.pathname.indexOf("/admin/evaluations") !== -1
-                          ? "opacity-75"
-                          : "text-blueGray-300")
+                          ? "text-lightBlue-500 hover:text-lightBlue-600"
+                          : "text-blueGray-700 hover:text-blueGray-500")
                       }
-                    ></i>{" "}
-                    Evaluations 360°
-                  </a>
-                </Link>
-              </li>
-              {renderOptions.map((item, index) => (
-                <div key={index}>
-                  <hr className="my-4 md:min-w-full" />
-                  <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-                    {item.title}
-                  </h6>
-                  {item.arrayOptions.map((itemOption, indexOption) => (
-                    <li className="items-center" key={indexOption}>
-                      <Link href={itemOption.path}>
-                        <a
-                          href="#pablo"
-                          className={
-                            "text-xs uppercase py-3 font-bold block " +
-                            (router.pathname.indexOf(itemOption.path) !== -1
-                              ? "text-lightBlue-500 hover:text-lightBlue-600"
-                              : "text-blueGray-700 hover:text-blueGray-500")
-                          }
-                        >
-                          <i
-                            className={clsx(
-                              itemOption.iconClass,
-                              "mr-2 text-sm ",
-                              router.pathname.indexOf(itemOption.path) !== -1
-                                ? "opacity-75"
-                                : "text-blueGray-300"
-                            )}
-                          ></i>{" "}
-                          {itemOption.title}
-                        </a>
-                      </Link>
-                    </li>
-                  ))}
-                </div>
-              ))}
+                    >
+                      <i
+                        className={
+                          "fas fa-table mr-2 text-sm " +
+                          (router.pathname.indexOf("/admin/evaluations") !== -1
+                            ? "opacity-75"
+                            : "text-blueGray-300")
+                        }
+                      ></i>{" "}
+                      Evaluations (Pending)
+                      <div
+                        className="py-1 px-2 text-white ml-2 rounded-md"
+                        style={{ backgroundColor: "#3b82f6" }}
+                      >
+                        2
+                      </div>
+                    </a>
+                  </Link>
+                </li>
+              )}
+              {renderOptions.map((item, index) => {
+                return (
+                  <div key={index}>
+                    {item.validation.includes(rol()) && (
+                      <>
+                        <hr className="my-4 md:min-w-full" />
+                        <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
+                          {item.title}
+                        </h6>
+                      </>
+                    )}
+
+                    {item.arrayOptions.map((itemOption, indexOption) => {
+                      if (itemOption.validation.includes(rol())) {
+                        return (
+                          <li className="items-center" key={indexOption}>
+                            <Link href={itemOption.path}>
+                              <a
+                                href="#pablo"
+                                className={
+                                  "text-xs uppercase py-3 font-bold block " +
+                                  (router.pathname.indexOf(itemOption.path) !==
+                                  -1
+                                    ? "text-lightBlue-500 hover:text-lightBlue-600"
+                                    : "text-blueGray-700 hover:text-blueGray-500")
+                                }
+                              >
+                                <i
+                                  className={clsx(
+                                    itemOption.iconClass,
+                                    "mr-2 text-sm ",
+                                    router.pathname.indexOf(itemOption.path) !==
+                                      -1
+                                      ? "opacity-75"
+                                      : "text-blueGray-300"
+                                  )}
+                                ></i>{" "}
+                                {itemOption.title}
+                              </a>
+                            </Link>
+                          </li>
+                        );
+                      }
+                    })}
+                  </div>
+                );
+              })}
 
               {/* <li className="items-center">
                 <Link href="/admin/maps">

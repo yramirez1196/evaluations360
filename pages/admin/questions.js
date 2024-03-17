@@ -14,6 +14,7 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { InputNumber } from "components/general/form/input-number";
+import { getSession } from "next-auth/react";
 export default function Questions() {
   const softSkillsQuestions = [
     "¿Cómo calificarías la capacidad del empleado para comunicarse de manera clara y efectiva con colegas y clientes?",
@@ -198,3 +199,19 @@ export default function Questions() {
 }
 
 Questions.layout = Admin;
+export const getServerSideProps = async (context) => {
+  const session = await getSession(context);
+
+  if (session && session.accessToken) {
+    return {
+      props: {},
+    };
+  } else {
+    return {
+      redirect: {
+        destination: "/auth/login",
+        permanent: false,
+      },
+    };
+  }
+};

@@ -10,8 +10,12 @@ import CardSocialTraffic from "components/Cards/CardSocialTraffic.js";
 // layout for page
 
 import Admin from "layouts/Admin.js";
+import { getSession, useSession } from "next-auth/react";
+
 
 export default function Dashboard() {
+
+
   return (
     <>
       <div className="flex flex-wrap">
@@ -35,3 +39,20 @@ export default function Dashboard() {
 }
 
 Dashboard.layout = Admin;
+
+export const getServerSideProps = async (context) => {
+  const session = await getSession(context);
+
+  if (session && session.accessToken) {
+    return {
+      props: {},
+    };
+  } else {
+    return {
+      redirect: {
+        destination: "/auth/login",
+        permanent: false,
+      },
+    };
+  }
+};
