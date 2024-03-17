@@ -3,7 +3,8 @@ import React from "react";
 import Head from "next/head";
 
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import "styles/tailwind.css";
+import "../styles/tailwind.css";
+
 import { SessionProvider } from "next-auth/react";
 export default function App({ Component, pageProps, session }) {
   const Layout = Component.layout || (({ children }) => <>{children}</>);
