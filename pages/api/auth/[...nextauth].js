@@ -17,7 +17,7 @@ export const authOptions = {
             credentials?.email,
             credentials?.password
           );
-          
+
           /* 	console.log(user.user); */
           return user.user;
         } catch (error) {
@@ -26,18 +26,18 @@ export const authOptions = {
       },
     }),
   ],
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async session({ session, token, user }) {
-      
       // Send properties to the client, like an access_token from a provider.
-     
+
       session.accessToken = token.accessToken;
 
       return session;
     },
     async jwt({ token, user, account }) {
       // Persist the OAuth access_token to the token right after signin
-     
+
       if (account) {
         token.accessToken = user.accessToken;
       }
