@@ -47,7 +47,7 @@ const NotificationDropdownEvaluations = ({ id, isCreate }) => {
           <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
             <div className="py-1 block">
               <Menu.Item>
-                <d>
+                <div>
                   <Link href={`/profile/${id}`}>
                     <button
                       className={
@@ -57,7 +57,7 @@ const NotificationDropdownEvaluations = ({ id, isCreate }) => {
                       View Profile
                     </button>
                   </Link>
-                </d>
+                </div>
               </Menu.Item>
               <Menu.Item>
                 <div>
