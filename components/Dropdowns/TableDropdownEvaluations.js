@@ -3,6 +3,10 @@ import { createPopper } from "@popperjs/core";
 import Link from "next/link";
 import { useModal } from "hooks/modal";
 import { ContainerEvaluations } from "./ContainerEvaluations";
+import { Fragment } from "react";
+import { Menu, Transition } from "@headlessui/react";
+import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
+import clsx from "clsx";
 
 const NotificationDropdownEvaluations = ({ id, isCreate }) => {
   // dropdown props
@@ -21,51 +25,58 @@ const NotificationDropdownEvaluations = ({ id, isCreate }) => {
   const { Modal, hide, isShow, show } = useModal();
   return (
     <>
-      <button
-        className="text-blueGray-500 py-1 px-3 focus:outline-none"
-        ref={btnDropdownRef}
-        onClick={(e) => {
-          e.preventDefault();
-          dropdownPopoverShow ? closeDropdownPopover() : openDropdownPopover();
-        }}
-      >
-        <i className="fas fa-ellipsis-v"></i>
-      </button>
-      <div
-        ref={popoverDropdownRef}
-        className={
-          (dropdownPopoverShow ? "block " : "hidden ") +
-          "bg-white text-base z-20 float-left py-2 list-none text-left rounded shadow-lg min-w-48"
-        }
-      >
-        <Link href={`/profile/${id}`}>
-          <button
-            className={
-              "focus:outline-none text-sm py-2 px-4 font-normal text-left w-full whitespace-nowrap bg-transparent text-blueGray-700"
-            }
-          >
-            View Profile
-          </button>
-        </Link>
+      <Menu as="div" className="relative inline-block text-left">
         <div>
-          {" "}
-          <button
-            className={
-              "focus:outline-none text-sm py-2 px-4 font-normal text-left w-full whitespace-nowrap bg-transparent text-blueGray-700"
-            }
-            onClick={() => {
-              show();
-            }}
-          >
-            {isCreate?"Evaluate":" View Evaluation"}
-          </button>
+          <Menu.Button className="focus:outline-none inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+            <EllipsisVerticalIcon
+              className=" h-5 w-5 text-gray-400"
+              aria-hidden="true"
+            />
+          </Menu.Button>
         </div>
-      </div>
-      <div>
-        <Modal isShow={isShow}>
-          <ContainerEvaluations isCreate={isCreate} />
-        </Modal>
-      </div>
+
+        <Transition
+          as={Fragment}
+          enter="transition ease-out duration-100"
+          enterFrom="transform opacity-0 scale-95"
+          enterTo="transform opacity-100 scale-100"
+          leave="transition ease-in duration-75"
+          leaveFrom="transform opacity-100 scale-100"
+          leaveTo="transform opacity-0 scale-95"
+        >
+          <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <div className="py-1 block">
+              <Menu.Item>
+                <d>
+                  <Link href={`/profile/${id}`}>
+                    <button
+                      className={
+                        "focus:outline-none text-sm py-2 px-4 font-normal text-left w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                      }
+                    >
+                      View Profile
+                    </button>
+                  </Link>
+                </d>
+              </Menu.Item>
+              <Menu.Item>
+                <div>
+                  <button
+                    className={
+                      "focus:outline-none text-sm py-2 px-4 font-normal text-left w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                    }
+                    onClick={() => {
+                      show();
+                    }}
+                  >
+                    {isCreate ? "Evaluate" : " View Evaluation"}
+                  </button>
+                </div>
+              </Menu.Item>
+            </div>
+          </Menu.Items>
+        </Transition>
+      </Menu>
     </>
   );
 };

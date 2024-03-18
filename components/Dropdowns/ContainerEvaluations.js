@@ -1,3 +1,4 @@
+import { Input } from "components/general/form/input";
 import React from "react";
 
 export const ContainerEvaluations = ({ isCreate }) => {
@@ -60,6 +61,13 @@ export const ContainerEvaluations = ({ isCreate }) => {
             </div>
           );
         })}
+        <div>
+          <Input
+            label={"Comentarios"}
+            placeHolder={"Comentarios"}
+            textArea
+          ></Input>
+        </div>
       </div>
 
       {/* Botón de Enviar */}
