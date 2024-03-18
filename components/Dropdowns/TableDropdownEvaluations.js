@@ -77,6 +77,11 @@ const NotificationDropdownEvaluations = ({ id, isCreate }) => {
           </Menu.Items>
         </Transition>
       </Menu>
+      <div>
+        <Modal isShow={isShow}>
+          <ContainerEvaluations isCreate={isCreate} />
+        </Modal>
+      </div>
     </>
   );
 };
