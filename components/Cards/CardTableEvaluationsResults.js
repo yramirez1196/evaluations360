@@ -7,7 +7,7 @@ import NotificationDropdownEvaluations from "components/Dropdowns/TableDropdownE
 import { Input } from "components/general/form/input";
 import { InputSelect } from "components/general/form/input-select";
 import { InputDate } from "components/general/form/input-date";
-
+import { EvaluationExcel } from "components/Report/evaluation";
 export default function CardTableEvaluationsResults({ color, isCreate }) {
   const arrayEmployees = [
     {
@@ -64,14 +64,17 @@ export default function CardTableEvaluationsResults({ color, isCreate }) {
 
         <InputDate label="From" placeHolder={"From"}></InputDate>
         <InputDate label="To" placeHolder={"To"}></InputDate>
-        <div>
+        <div className="flex" style={{gap:"18px"}}>
           <button
             className="bg-blueGray-700 active:bg-blueGray-600 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
             type="button"
           >
             Search
+						
           </button>
+          <EvaluationExcel></EvaluationExcel>
         </div>
+        
       </div>
       <div
         className={
