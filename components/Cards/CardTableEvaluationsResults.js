@@ -7,7 +7,8 @@ import NotificationDropdownEvaluations from "components/Dropdowns/TableDropdownE
 import { Input } from "components/general/form/input";
 import { InputSelect } from "components/general/form/input-select";
 import { InputDate } from "components/general/form/input-date";
-import { EvaluationExcel } from "components/Report/evaluation";
+import { EvaluationExcel } from "components/Report/Evaluation";
+
 export default function CardTableEvaluationsResults({ color, isCreate }) {
   const arrayEmployees = [
     {
